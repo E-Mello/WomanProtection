@@ -1,31 +1,73 @@
-import { StyleSheet } from 'react-native';
+import { Modal, Text, View } from 'react-native';
+import React, { useState } from 'react';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import AnimatedButton3D from '../../components/AnimatedButton3D';
+import Colors from '../../constants/Colors';
+import styles from '../../styles/pageOne';
 
-export default function TabOneScreen() {
+const HomeScreen = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [canPressButton, setCanPressButton] = useState(true);
+  const [waitMessage, setWaitMessage] = useState('');
+  const [remainingTime, setRemainingTime] = useState(0);
+
+  const handleButtonPress = () => {
+    if (canPressButton) {
+      setIsModalVisible(true);
+      setCanPressButton(false);
+      setWaitMessage('');
+      setRemainingTime(10);
+      startCountdown();
+      setTimeout(() => {
+        setIsModalVisible(false);
+      }, 500);
+      startCountdown();
+    } else {
+      setWaitMessage(`Aguarde pelo menos ${remainingTime} segundos para fazer outra solicitação.`);
+    }
+  };
+
+  const startCountdown = () => {
+    let countdownTime = remainingTime;
+    const countdownInterval = setInterval(() => {
+      countdownTime -= 1;
+      setWaitMessage(`Aguarde pelo menos ${countdownTime} segundos para fazer outra solicitação.`);
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(countdownInterval);
+      setWaitMessage('');
+      setCanPressButton(true);
+    }, remainingTime * 1000);
+  };
+
+  const handlePressIn = () => {
+    // Handle button press in if needed
+  };
+
+  const handlePressOut = () => {
+    handleButtonPress();
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <Text style={styles.title}>WomanProtection App</Text>
+      <AnimatedButton3D onPressIn={handlePressIn} onPressOut={handlePressOut} disabled={!canPressButton} />
+      {waitMessage ? <Text style={styles.waitMessage}>{waitMessage}</Text> : null}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>Alerta enviado para a equipe de policiais!</Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+export default HomeScreen;
