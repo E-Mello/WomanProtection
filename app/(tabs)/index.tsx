@@ -21,7 +21,6 @@ const HomeScreen = () => {
       setTimeout(() => {
         setIsModalVisible(false);
       }, 500);
-      startCountdown();
     } else {
       setWaitMessage(`Aguarde pelo menos ${remainingTime} segundos para fazer outra solicitação.`);
     }

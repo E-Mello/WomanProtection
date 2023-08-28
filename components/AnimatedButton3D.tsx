@@ -77,8 +77,8 @@ const AnimatedButton3D: React.FC<AnimatedButtonProps> = ({ onPressIn, onPressOut
                 alignItems: 'center',
                 transform: [{ translateY: 0 }],
             }}>
-                <Text style={{ color: '#FFF', fontSize: 18, fontWeight: 'bold' }}>
-                    Botão 3D
+                <Text style={{ color: '#FFF', fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>
+                    Botão de Emergência
                 </Text>
             </View>
         </AnimatedTouchableOpacity>

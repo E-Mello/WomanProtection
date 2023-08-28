@@ -17,7 +17,18 @@ const SECTIONS: Section[] = [
     title: 'Accordion 2',
     content: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
   },
-  // ... Add more sections if needed
+  {
+    title: 'Accordion 3',
+    content: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
+  },
+  {
+    title: 'Accordion 4',
+    content: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
+  },
+  {
+    title: 'Accordion 5',
+    content: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
+  },
 ];
 
 export default function TabTwoScreen() {
@@ -51,6 +62,7 @@ export default function TabTwoScreen() {
         onChange={setActiveSections}
         renderHeader={renderHeader}
         renderContent={renderContent}
+        sectionContainerStyle={{ marginBottom: 5 }}
       />
     </View>
   );
@@ -71,7 +83,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#f1efef',
   },
   contentText: {
     fontSize: 14,
